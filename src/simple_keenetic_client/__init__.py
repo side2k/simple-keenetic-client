@@ -148,3 +148,8 @@ class SimpleKeeneticClient:
             },
         )
         return await response.json()
+
+    async def get_version(self):
+        response = await self.get("/rci/show/version")
+        response.raise_for_status()
+        return await response.json()
