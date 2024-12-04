@@ -21,7 +21,7 @@ class SimpleKeeneticClient:
         return self
 
     async def __aexit__(self, exc_type, exc_value, traceback):
-        logger.warning("Exiting keenetic loop")
+        logger.debug("Disconnecting from {self._base_url}")
         await self.close()
 
     async def connect(self):
