@@ -149,6 +149,28 @@ class SimpleKeeneticClient:
         )
         return await response.json()
 
+    async def get_port_forwardings(self):
+        response = await self.post(
+            "/rci/", data={"show": {"sc": {"ip": {"static": {}}}}}
+        )
+        response.raise_for_status()
+        rci_data = await response.json()
+        return rci_data["show"]["sc"]["ip"]["static"]
+
+    async def set_port_forwarding_enabled(self, index: str, enabled: bool, save=True):
+        data = [{"ip": {"index": index, "static": {"disable": not enabled}}}]
+        if save:
+            data.append({"system": {"configuration": {"save": {}}}})
+        response = await self.post("/rci/", data=data)
+        response.raise_for_status()
+        return await response.json()
+
+    async def enable_port_forwarding(self, index):
+        return await self.set_port_forwarding_enabled(index, enabled=True, save=True)
+
+    async def disable_port_forwarding(self, index):
+        return await self.set_port_forwarding_enabled(index, enabled=False, save=True)
+
     async def get_version(self):
         response = await self.get("/rci/show/version")
         response.raise_for_status()
