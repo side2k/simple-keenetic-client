@@ -1,30 +1,39 @@
-[tool.poetry]
+[project]
 name = "simple_keenetic_client"
 version = "0.1.1"
 description = "Client for KeeneticOS-based routers via HTTP interface"
-authors = ["Leonid Amirov <leonid.amirov@gmail.com>"]
-license = "MIT"
+authors = [{ name = "Leonid Amirov", email = "leonid.amirov@gmail.com" }]
+requires-python = ">=3.11,<4"
 readme = "README.md"
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = ["aiohttp>=3.11.7,<4"]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-aiohttp = "^3.11.7"
-
-
-[tool.poetry.group.dev.dependencies]
-black = "^24.10.0"
-flake8 = "^7.1.1"
-isort = "^5.13.2"
-pytest = "^8.3.3"
-pytest-asyncio = "^0.24.0"
-pytest-mock = "^3.14.0"
-
-[tool.poetry.urls]
+[project.urls]
 repository = "https://github.com/side2k/simple-keenetic-client"
 
+[dependency-groups]
+dev = [
+    "black>=24.10.0,<25",
+    "flake8>=7.1.1,<8",
+    "isort>=5.13.2,<6",
+    "pytest>=8.3.3,<9",
+    "pytest-asyncio>=0.24.0,<0.25",
+    "pytest-mock>=3.14.0,<4",
+]
+
+[tool.uv]
+default-groups = "all"
+
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
 
 [tool.black]
 line-length = 95
